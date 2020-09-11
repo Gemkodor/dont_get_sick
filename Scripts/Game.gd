@@ -10,6 +10,7 @@ var current_nb_coins = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.score = 0
 	screen_size = get_viewport().size
 	if Global.music_activated:
 		$Music.play()
