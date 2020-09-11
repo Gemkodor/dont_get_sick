@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/sprites/healthy-villager.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Villager.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 16.494
+
+[node name="Villager" type="Area2D" groups=[
+"villagers",
+]]
+position = Vector2( 431.694, 250.382 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+[connection signal="area_entered" from="." to="." method="_on_Villager_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Villager_body_entered"]

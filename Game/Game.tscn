@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Game/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Game.gd" type="Script" id=2]
+[ext_resource path="res://Game/Villager.tscn" type="PackedScene" id=3]
+[ext_resource path="res://HUD/GUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Game/Coin.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/music/Bonbon.wav" type="AudioStream" id=6]
+[ext_resource path="res://Game/Store.tscn" type="PackedScene" id=7]
+
+[node name="Game" type="Node"]
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+Villager = ExtResource( 3 )
+Coin = ExtResource( 5 )
+
+[node name="HUD" type="CanvasLayer" parent="Control"]
+pause_mode = 2
+
+[node name="GUI" parent="Control/HUD" instance=ExtResource( 4 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -684.0
+margin_top = 2.0
+margin_right = 684.0
+margin_bottom = -673.0
+
+[node name="Label" type="Label" parent="Control/HUD"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -163.0
+margin_top = -39.0
+margin_right = 163.0
+text = "Appuyez sur Espace pour ouvrir la boutique"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerEffects" type="HBoxContainer" parent="Control/HUD"]
+margin_left = 22.0
+margin_top = 672.34
+margin_right = 506.0
+margin_bottom = 739.34
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="Control" instance=ExtResource( 1 )]
+position = Vector2( 663.129, 347.327 )
+
+[node name="NewVillagerTimer" type="Timer" parent="Control"]
+wait_time = 3.0
+autostart = true
+
+[node name="NewInfectedVillagerTimer" type="Timer" parent="Control"]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="NewCoinTimer" type="Timer" parent="Control"]
+wait_time = 2.0
+autostart = true
+
+[node name="SpeedBoostTimer" type="Timer" parent="Control"]
+wait_time = 30.0
+one_shot = true
+
+[node name="ImmuneTimer" type="Timer" parent="Control"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Music" type="AudioStreamPlayer" parent="Control"]
+pause_mode = 2
+stream = ExtResource( 6 )
+
+[node name="StorePopup" parent="." instance=ExtResource( 7 )]
+visible = false
+[connection signal="coin_collected" from="Control/Player" to="Control" method="_on_Player_coin_collected"]
+[connection signal="health_changed" from="Control/Player" to="Control/HUD/GUI" method="_on_Player_health_changed"]
+[connection signal="money_changed" from="Control/Player" to="Control/HUD/GUI" method="_on_Player_money_changed"]
+[connection signal="set_player_effect_hud" from="Control/Player" to="Control/HUD/GUI" method="_on_Player_set_player_effect_hud"]
+[connection signal="timeout" from="Control/NewVillagerTimer" to="Control" method="_on_NewVillagerTimer_timeout"]
+[connection signal="timeout" from="Control/NewInfectedVillagerTimer" to="Control" method="_on_NewInfectedVillagerTimer_timeout"]
+[connection signal="timeout" from="Control/NewCoinTimer" to="Control" method="_on_NewCoinTimer_timeout"]
+[connection signal="timeout" from="Control/SpeedBoostTimer" to="Control/Player" method="_on_SpeedBoostTimer_timeout"]
+[connection signal="timeout" from="Control/ImmuneTimer" to="Control/Player" method="_on_ImmuneTimer_timeout"]
+[connection signal="buy_first_aid_kit" from="StorePopup" to="Control/Player" method="_on_StorePopup_buy_first_aid_kit"]
+[connection signal="buy_injection" from="StorePopup" to="Control/Player" method="_on_StorePopup_buy_injection"]
+[connection signal="buy_mask" from="StorePopup" to="Control/Player" method="_on_StorePopup_buy_mask"]
+[connection signal="buy_pills" from="StorePopup" to="Control/Player" method="_on_StorePopup_buy_pills"]

@@ -1,0 +1,101 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/fonts/COVID VIRUS.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/MainScene.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/Comfortaa-Bold.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 72
+outline_color = Color( 0.0941176, 0.384314, 0.498039, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 28
+extra_spacing_top = 25
+extra_spacing_bottom = 25
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 4 )
+
+[node name="MainMenu" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+mouse_filter = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1268.0
+margin_bottom = 668.0
+
+[node name="Title" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1268.0
+margin_bottom = 77.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Title"]
+margin_left = 450.0
+margin_right = 818.0
+margin_bottom = 77.0
+custom_fonts/font = SubResource( 1 )
+text = "DON'T GET SICK"
+
+[node name="Menu" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 81.0
+margin_right = 1268.0
+margin_bottom = 636.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Menu"]
+margin_right = 1268.0
+margin_bottom = 555.0
+size_flags_horizontal = 7
+alignment = 1
+
+[node name="PlayBtn" type="ToolButton" parent="VBoxContainer/Menu/VBoxContainer"]
+margin_top = 138.0
+margin_right = 1268.0
+margin_bottom = 228.0
+custom_fonts/font = SubResource( 2 )
+text = "Jouer"
+
+[node name="Options" type="ToolButton" parent="VBoxContainer/Menu/VBoxContainer"]
+margin_top = 232.0
+margin_right = 1268.0
+margin_bottom = 322.0
+custom_fonts/font = SubResource( 2 )
+text = "Options"
+
+[node name="Quit" type="ToolButton" parent="VBoxContainer/Menu/VBoxContainer"]
+margin_top = 326.0
+margin_right = 1268.0
+margin_bottom = 416.0
+custom_fonts/font = SubResource( 2 )
+text = "Quitter"
+
+[node name="HighScore" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 640.0
+margin_right = 1268.0
+margin_bottom = 668.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HighScore"]
+margin_right = 1268.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.12549, 0.580392, 0.223529, 1 )
+text = "Meilleur score :"
+align = 1
+[connection signal="pressed" from="VBoxContainer/Menu/VBoxContainer/PlayBtn" to="." method="_on_PlayBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/Menu/VBoxContainer/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Menu/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

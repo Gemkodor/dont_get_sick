@@ -1,0 +1,255 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Store.gd" type="Script" id=1]
+[ext_resource path="res://assets/icons/first-aid-kit.png" type="Texture" id=2]
+[ext_resource path="res://assets/icons/pill.png" type="Texture" id=3]
+[ext_resource path="res://assets/icons/medecine.png" type="Texture" id=4]
+[ext_resource path="res://assets/icons/mask.png" type="Texture" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.105882, 0.0980392, 0.0941176, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.0745098, 0.0431373, 0.156863, 1 )
+shadow_color = Color( 0.152941, 0.137255, 0.137255, 0.6 )
+shadow_size = 5
+shadow_offset = Vector2( 5, 5 )
+
+[node name="Store" type="Popup"]
+pause_mode = 2
+visible = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -5.72803
+margin_top = -1.50739
+margin_right = -5.72803
+margin_bottom = -1.50739
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = 120.0
+margin_top = 118.493
+margin_right = 1248.0
+margin_bottom = 646.493
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 30.0
+margin_right = -30.0
+margin_bottom = -30.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="VBoxContainer" parent="Panel/MarginContainer"]
+margin_right = 1068.0
+margin_bottom = 468.0
+
+[node name="ShopContainer" type="VBoxContainer" parent="Panel/MarginContainer/Container"]
+margin_right = 1068.0
+margin_bottom = 444.0
+size_flags_vertical = 3
+
+[node name="Boost" type="HBoxContainer" parent="Panel/MarginContainer/Container/ShopContainer"]
+margin_right = 1068.0
+margin_bottom = 64.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/Container/ShopContainer/Boost"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 4 )
+
+[node name="ItemName" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/Boost"]
+margin_left = 68.0
+margin_top = 25.0
+margin_right = 315.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "Injection douteuse"
+align = 1
+
+[node name="ItemDescription" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/Boost"]
+margin_left = 319.0
+margin_top = 25.0
+margin_right = 566.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "Augmente la vitesse pendant 30s"
+
+[node name="ItemPrice" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/Boost"]
+margin_left = 570.0
+margin_top = 25.0
+margin_right = 817.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "20 émeraudes"
+align = 1
+
+[node name="BuyInjectionBtn" type="Button" parent="Panel/MarginContainer/Container/ShopContainer/Boost"]
+margin_left = 821.0
+margin_right = 1068.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+text = "Acheter cet objet"
+
+[node name="FirstAidKit" type="HBoxContainer" parent="Panel/MarginContainer/Container/ShopContainer"]
+margin_top = 68.0
+margin_right = 1068.0
+margin_bottom = 132.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/Container/ShopContainer/FirstAidKit"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 2 )
+
+[node name="ItemName" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/FirstAidKit"]
+margin_left = 68.0
+margin_top = 25.0
+margin_right = 315.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "Trousse de premier soins"
+align = 1
+
+[node name="ItemDescription" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/FirstAidKit"]
+margin_left = 319.0
+margin_top = 25.0
+margin_right = 566.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "Donne 10 points de vie"
+
+[node name="ItemPrice" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/FirstAidKit"]
+margin_left = 570.0
+margin_top = 25.0
+margin_right = 817.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "30 émeraudes"
+align = 1
+
+[node name="BuyFirstAidBtn" type="Button" parent="Panel/MarginContainer/Container/ShopContainer/FirstAidKit"]
+margin_left = 821.0
+margin_right = 1068.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+text = "Acheter cet objet"
+
+[node name="Pills" type="HBoxContainer" parent="Panel/MarginContainer/Container/ShopContainer"]
+margin_top = 136.0
+margin_right = 1068.0
+margin_bottom = 200.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/Container/ShopContainer/Pills"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 3 )
+
+[node name="ItemName" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/Pills"]
+margin_left = 68.0
+margin_top = 25.0
+margin_right = 315.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "Pillules du docteur Tamalou"
+align = 1
+
+[node name="ItemDescription" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/Pills"]
+margin_left = 319.0
+margin_top = 16.0
+margin_right = 566.0
+margin_bottom = 47.0
+size_flags_horizontal = 3
+text = "Donne 30 points de vie
+(20 % de risque de perdre 30 HP)"
+
+[node name="ItemPrice" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/Pills"]
+margin_left = 570.0
+margin_top = 25.0
+margin_right = 817.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "60 émeraudes"
+align = 1
+
+[node name="BuyPillsBtn" type="Button" parent="Panel/MarginContainer/Container/ShopContainer/Pills"]
+margin_left = 821.0
+margin_right = 1068.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+text = "Acheter cet objet"
+
+[node name="Mask" type="HBoxContainer" parent="Panel/MarginContainer/Container/ShopContainer"]
+margin_top = 204.0
+margin_right = 1068.0
+margin_bottom = 268.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/Container/ShopContainer/Mask"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 5 )
+
+[node name="ItemName" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/Mask"]
+margin_left = 68.0
+margin_top = 25.0
+margin_right = 315.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "Masque"
+align = 1
+
+[node name="ItemDescription" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/Mask"]
+margin_left = 319.0
+margin_top = 25.0
+margin_right = 566.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "Rend immunisé pendant 10s"
+
+[node name="ItemPrice" type="Label" parent="Panel/MarginContainer/Container/ShopContainer/Mask"]
+margin_left = 570.0
+margin_top = 25.0
+margin_right = 817.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "80 émeraudes"
+align = 1
+
+[node name="BuyMaskBtn" type="Button" parent="Panel/MarginContainer/Container/ShopContainer/Mask"]
+margin_left = 821.0
+margin_right = 1068.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+text = "Acheter cet objet"
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="Panel/MarginContainer/Container"]
+margin_top = 448.0
+margin_right = 1068.0
+margin_bottom = 468.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Container/ButtonsContainer"]
+margin_right = 1068.0
+margin_bottom = 20.0
+alignment = 1
+
+[node name="BackToMenu" type="Button" parent="Panel/MarginContainer/Container/ButtonsContainer/HBoxContainer"]
+margin_left = 447.0
+margin_right = 620.0
+margin_bottom = 20.0
+text = "Retour au menu principal"
+[connection signal="pressed" from="Panel/MarginContainer/Container/ShopContainer/Boost/BuyInjectionBtn" to="." method="_on_BuyInjectionBtn_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/Container/ShopContainer/FirstAidKit/BuyFirstAidBtn" to="." method="_on_BuyFirstAidBtn_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/Container/ShopContainer/Pills/BuyPillsBtn" to="." method="_on_BuyPillsBtn_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/Container/ShopContainer/Mask/BuyMaskBtn" to="." method="_on_BuyMaskBtn_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/Container/ButtonsContainer/HBoxContainer/BackToMenu" to="." method="_on_BackToMenu_pressed"]
