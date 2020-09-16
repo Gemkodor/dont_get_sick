@@ -5,7 +5,7 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_key_pressed(KEY_ESCAPE):
-		if get_tree().change_scene("res://Menus/MainScene.tscn") != OK:
+		if get_tree().change_scene("res://Scenes/Menus/MainScene.tscn") != OK:
 			print("An unexpected error occured while trying to switch to Main scene")
 
 func _on_CheckBox_toggled(button_pressed):

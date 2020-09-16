@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lifebar_bg.png-bbb11f3195d73a18fddc4dc15125c977.stex"
+path="res://.import/emeralds_icon.png-12eab5042f3115e12643179a4c8926a1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/GUI/lifebar_bg.png"
-dest_files=[ "res://.import/lifebar_bg.png-bbb11f3195d73a18fddc4dc15125c977.stex" ]
+source_file="res://assets/sprites/GUI/emeralds_icon.png"
+dest_files=[ "res://.import/emeralds_icon.png-12eab5042f3115e12643179a4c8926a1.stex" ]
 
 [params]
 
