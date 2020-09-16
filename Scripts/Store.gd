@@ -36,7 +36,7 @@ func _process(_delta):
 
 func _on_BackToMenu_pressed():
 	get_tree().paused = false
-	if get_tree().change_scene("res://Menus/MainScene.tscn") != OK:
+	if get_tree().change_scene("res://Scenes/Menus/MainScene.tscn") != OK:
 		print("An unexpected error occured while trying to switch to Main scene")
 
 func _on_BuyFirstAidBtn_pressed():

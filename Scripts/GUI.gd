@@ -8,6 +8,8 @@ onready var tween = $Tween
 var boost_texture = preload("res://assets/icons/fast.png")
 var mask_texture = preload("res://assets/icons/mask.png")
 
+onready var effect_timer_scene : PackedScene = preload("res://Scenes/HUD/EffectTimer.tscn")
+
 var animated_health = 100
 
 func _process(_delta):
@@ -41,6 +43,7 @@ func _on_Player_set_player_effect_hud(effect, deactivate):
 				texture_rect.texture = boost_texture
 				texture_rect.name = "BoostTexture"
 				$"../PlayerEffects".add_child(texture_rect)
+				self.add_timer(30)
 		"immunity":
 			if deactivate:
 				$"../PlayerEffects".remove_child($"../PlayerEffects/ImmunityTexture")
@@ -49,3 +52,9 @@ func _on_Player_set_player_effect_hud(effect, deactivate):
 				texture_rect.texture = mask_texture
 				texture_rect.name = "ImmunityTexture"
 				$"../PlayerEffects".add_child(texture_rect)
+				self.add_timer(10)
+				
+func add_timer(duration):
+	var effect_timer = effect_timer_scene.instance()
+	$"../PlayerEffects".add_child(effect_timer)
+	effect_timer.start_timer(duration)

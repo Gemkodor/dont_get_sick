@@ -5,7 +5,6 @@
 [ext_resource path="res://assets/fonts/Comfortaa-Bold.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Scenes/HUD/EmeraldCounter.tscn" type="PackedScene" id=4]
 
-
 [sub_resource type="DynamicFont" id=1]
 size = 24
 font_data = ExtResource( 3 )
