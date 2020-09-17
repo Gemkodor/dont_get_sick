@@ -3,12 +3,10 @@ extends MarginContainer
 onready var health_number = $Bars/VBoxContainer/LifeBar/Counters/Counter/Background/Number
 onready var health_bar = $Bars/VBoxContainer/LifeBar/Counters/Gauge
 onready var money_number = $Bars/Counters/EmeraldCounter/Counter/Background/Number
+onready var player_effects_box = $"../PlayerEffects"
 onready var tween = $Tween
 
-var boost_texture = preload("res://assets/icons/fast.png")
-var mask_texture = preload("res://assets/icons/mask.png")
-
-onready var effect_timer_scene : PackedScene = preload("res://Scenes/HUD/EffectTimer.tscn")
+onready var player_effect_scene : PackedScene = preload("res://Scenes/HUD/PlayerEffect.tscn")
 
 var animated_health = 100
 
@@ -33,28 +31,12 @@ func _on_Timer_timeout():
 		Global.score += 1
 	$Bars/HBoxContainer/TimePlayedLabel.text = "Score : " + str(Global.score)
 
-func _on_Player_set_player_effect_hud(effect, deactivate):
+func _on_StorePopup_set_player_effect_hud(effect, duration):
+	var player_effect = player_effect_scene.instance()
+	player_effects_box.add_child(player_effect)
+			
 	match effect:
 		"boost":
-			if deactivate:
-				$"../PlayerEffects".remove_child($"../PlayerEffects/BoostTexture")
-			else:
-				var texture_rect = TextureRect.new()
-				texture_rect.texture = boost_texture
-				texture_rect.name = "BoostTexture"
-				$"../PlayerEffects".add_child(texture_rect)
-				self.add_timer(30)
+			player_effect.display_effect("boost", duration)
 		"immunity":
-			if deactivate:
-				$"../PlayerEffects".remove_child($"../PlayerEffects/ImmunityTexture")
-			else:
-				var texture_rect = TextureRect.new()
-				texture_rect.texture = mask_texture
-				texture_rect.name = "ImmunityTexture"
-				$"../PlayerEffects".add_child(texture_rect)
-				self.add_timer(10)
-				
-func add_timer(duration):
-	var effect_timer = effect_timer_scene.instance()
-	$"../PlayerEffects".add_child(effect_timer)
-	effect_timer.start_timer(duration)
+			player_effect.display_effect("immunity", duration)

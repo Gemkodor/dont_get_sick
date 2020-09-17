@@ -11,10 +11,9 @@ var money = 1000
 var screen_size
 
 # Signals
-signal health_changed
-signal money_changed
+signal health_changed(health)
+signal money_changed(money)
 signal coin_collected
-signal set_player_effect_hud
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -58,6 +57,9 @@ func update_health(new_value):
 	
 	emit_signal("health_changed", health)
 	
+func set_speed(new_speed):
+	self.speed = new_speed
+	
 func take_damage(count):
 	if not is_immune:
 		update_health(health - count)
@@ -65,44 +67,13 @@ func take_damage(count):
 	
 func get_money(count):
 	money += count
-	emit_signal("money_changed", money)
+	emit_signal("money_changed", self.money)
 	emit_signal("coin_collected")
-	
-func _on_StorePopup_buy_injection():
-	if money >= 20:
-		money -= 20
-		speed = 400
-		$"../SpeedBoostTimer".start()
-		emit_signal("set_player_effect_hud", "boost", false)
-		emit_signal("money_changed", money)
 
-func _on_StorePopup_buy_first_aid_kit():
-	if money >= 30:
-		money -= 30
-		update_health(health + 10)
-		emit_signal("money_changed", money)
-
-func _on_StorePopup_buy_pills():
-	if money >= 60:
-		money -= 60
-		if randi() % 100 + 1 < 20:
-			update_health(health - 30)
-		else:
-			update_health(health + 30)
-		emit_signal("money_changed", money)
-
-func _on_StorePopup_buy_mask():
-	if money >= 80:
-		money -= 80
-		is_immune = true
-		$"../ImmuneTimer".start()
-		emit_signal("set_player_effect_hud", "immunity", false)
-		emit_signal("money_changed", money)
-
-func _on_SpeedBoostTimer_timeout():
-	speed = 200
-	emit_signal("set_player_effect_hud", "boost", true)
-
-func _on_ImmuneTimer_timeout():
-	is_immune = false
-	emit_signal("set_player_effect_hud", "immunity", true)
+func withdraw_money(amount):
+	if self.money >= amount:
+		self.money -= amount
+		emit_signal("money_changed", self.money)
+		return true
+		
+	return false
