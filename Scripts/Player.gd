@@ -9,6 +9,7 @@ export var max_health = 100
 var health = max_health
 var money = 1000
 var screen_size
+var effects = {}
 
 # Signals
 signal health_changed(health)
@@ -57,9 +58,18 @@ func update_health(new_value):
 	
 	emit_signal("health_changed", health)
 	
+func set_effect(effect, active):
+	self.effects[effect] = active
+	
 func set_speed(new_speed):
 	self.speed = new_speed
 	
+func is_effect_active(effect):
+	if effect in self.effects:
+		return self.effects[effect]
+	
+	return false
+
 func take_damage(count):
 	if not is_immune:
 		update_health(health - count)

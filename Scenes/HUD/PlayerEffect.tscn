@@ -7,20 +7,19 @@
 size = 28
 font_data = ExtResource( 1 )
 
-[node name="PlayerEffect" type="MarginContainer"]
+[node name="PlayerEffect" type="PanelContainer"]
 pause_mode = 1
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -32.0
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 1368.0
-margin_bottom = 32.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1361.0
+margin_bottom = 39.0
 
 [node name="Icon" type="TextureRect" parent="HBoxContainer"]
 margin_bottom = 32.0

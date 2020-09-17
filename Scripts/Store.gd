@@ -12,7 +12,7 @@ enum PRICES {
 }
 
 enum EFFECTS_DURATIONS {
-	INJECTION = 5,
+	INJECTION = 30,
 	MASK = 10
 }
 
@@ -68,28 +68,26 @@ func _on_BuyPillsBtn_pressed():
 			self.player.update_health(self.player.health + 30)
 
 func _on_BuyInjectionBtn_pressed():
-	if self.player.withdraw_money(PRICES.INJECTION):
-		self.player.set_speed(400)
-		emit_signal("set_player_effect_hud", "boost", EFFECTS_DURATIONS.INJECTION)
-		self.create_timer(EFFECTS_DURATIONS.INJECTION, "_on_SpeedBoostTimer_timeout")
-		
+	if not self.player.is_effect_active("speed"):
+		if self.player.withdraw_money(PRICES.INJECTION):
+			self.player.set_effect("speed", true)
+			self.player.set_speed(400)
+			emit_signal("set_player_effect_hud", "boost", EFFECTS_DURATIONS.INJECTION)
+			self.create_timer(EFFECTS_DURATIONS.INJECTION, "_on_SpeedBoostTimer_timeout")
+			
 func _on_BuyMaskBtn_pressed():
-	if self.player.withdraw_money(PRICES.MASK):
-		self.player.is_immune = true
-		emit_signal("set_player_effect_hud", "immunity", EFFECTS_DURATIONS.MASK)
-		self.create_timer(EFFECTS_DURATIONS.MASK, "_on_ImmuneTimer_timeout")
+	if not self.player.is_effect_active("immune"):
+		if self.player.withdraw_money(PRICES.MASK):
+			self.player.set_effect("immune", true)
+			self.player.is_immune = true
+			emit_signal("set_player_effect_hud", "immunity", EFFECTS_DURATIONS.MASK)
+			self.create_timer(EFFECTS_DURATIONS.MASK, "_on_ImmuneTimer_timeout")
 
 func _on_SpeedBoostTimer_timeout():
 	self.player.set_speed(200)
+	self.player.set_effect("speed", false)
 
 func _on_ImmuneTimer_timeout():
 	self.player.is_immune = false
-
-
-
-
-
-
-
-
+	self.player.set_effect("immune", false)
 
