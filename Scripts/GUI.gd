@@ -1,14 +1,17 @@
 extends MarginContainer
 
-onready var health_number = $Bars/VBoxContainer/LifeBar/Counters/Counter/Background/Number
-onready var health_bar = $Bars/VBoxContainer/LifeBar/Counters/Gauge
-onready var money_number = $Bars/Counters/EmeraldCounter/Counter/Background/Number
-onready var player_effects_box = $"../PlayerEffects"
-onready var tween = $Tween
-
+onready var player : Node = $"../../Player"
+onready var health_number : Label = $Bars/VBoxContainer/LifeBar/Counters/Counter/Background/Number
+onready var health_bar : TextureProgress = $Bars/VBoxContainer/LifeBar/Counters/Gauge
+onready var money_number : Label = $Bars/Counters/EmeraldCounter/Counter/Background/Number
+onready var player_effects_box : Node = $"../PlayerEffects"
+onready var tween : Tween = $Tween
 onready var player_effect_scene : PackedScene = preload("res://Scenes/HUD/PlayerEffect.tscn")
 
-var animated_health = 100
+var animated_health : int = 100
+
+func _ready():
+	money_number.text = str(self.player.money)
 
 func _process(_delta):
 	var round_value = round(animated_health)

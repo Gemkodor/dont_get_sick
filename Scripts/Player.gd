@@ -7,7 +7,7 @@ export var is_infected = false
 export var max_health = 100
 
 var health = max_health
-var money = 1000
+var money = 0
 var screen_size
 var effects = {}
 
