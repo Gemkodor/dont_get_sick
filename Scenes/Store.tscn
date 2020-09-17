@@ -22,10 +22,6 @@ pause_mode = 2
 visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -5.72803
-margin_top = -1.50739
-margin_right = -5.72803
-margin_bottom = -1.50739
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -233,23 +229,46 @@ margin_bottom = 64.0
 size_flags_horizontal = 3
 text = "Acheter cet objet"
 
-[node name="ButtonsContainer" type="VBoxContainer" parent="Panel/MarginContainer/Container"]
+[node name="ButtonsContainer" type="HBoxContainer" parent="Panel/MarginContainer/Container"]
 margin_top = 448.0
 margin_right = 1068.0
 margin_bottom = 468.0
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/MarginContainer/Container/ButtonsContainer"]
+margin_right = 966.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="BackToGame" type="Button" parent="Panel/MarginContainer/Container/ButtonsContainer/HBoxContainer2"]
+margin_left = 454.0
+margin_right = 512.0
+margin_bottom = 20.0
+text = "Fermer"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Container/ButtonsContainer"]
+margin_left = 970.0
 margin_right = 1068.0
 margin_bottom = 20.0
 alignment = 1
 
 [node name="BackToMenu" type="Button" parent="Panel/MarginContainer/Container/ButtonsContainer/HBoxContainer"]
-margin_left = 447.0
-margin_right = 620.0
+margin_right = 98.0
 margin_bottom = 20.0
-text = "Retour au menu principal"
+text = "Quitter le jeu"
+
+[node name="ConfirmQuitDialog" type="ConfirmationDialog" parent="."]
+visible = true
+margin_left = 120.0
+margin_top = 118.493
+margin_right = 372.0
+margin_bottom = 188.493
+window_title = "Quitter"
+dialog_text = "Voulez-vous vraiment quitter le jeu ?"
 [connection signal="pressed" from="Panel/MarginContainer/Container/ShopContainer/Boost/BuyInjectionBtn" to="." method="_on_BuyInjectionBtn_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/Container/ShopContainer/FirstAidKit/BuyFirstAidBtn" to="." method="_on_BuyFirstAidBtn_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/Container/ShopContainer/Pills/BuyPillsBtn" to="." method="_on_BuyPillsBtn_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/Container/ShopContainer/Mask/BuyMaskBtn" to="." method="_on_BuyMaskBtn_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/Container/ButtonsContainer/HBoxContainer2/BackToGame" to="." method="_on_BackToGame_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/Container/ButtonsContainer/HBoxContainer/BackToMenu" to="." method="_on_BackToMenu_pressed"]
+[connection signal="confirmed" from="ConfirmQuitDialog" to="." method="_on_ConfirmQuitDialog_confirmed"]

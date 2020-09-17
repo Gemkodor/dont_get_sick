@@ -37,11 +37,14 @@ func check_player_money():
 	else:
 		$Panel/MarginContainer/Container/ShopContainer/Mask/BuyMaskBtn.disabled = false
 
+func close():
+	get_tree().paused = false
+	hide()
+
 func _process(_delta):
 	check_player_money()
 	if Input.is_key_pressed(KEY_ESCAPE):
-		get_tree().paused = false
-		hide()
+		self.close()
 
 func create_timer(duration, callback):
 	var player_effect_timer = Timer.new()
@@ -51,7 +54,14 @@ func create_timer(duration, callback):
 	player_effect_timer.connect("timeout", self, callback)
 	player_effect_timer.start()
 
+func _on_BackToGame_pressed():
+	self.close()
+
 func _on_BackToMenu_pressed():
+	$ConfirmQuitDialog.show()
+	$ConfirmQuitDialog.popup_centered()
+	
+func _on_ConfirmQuitDialog_confirmed():
 	get_tree().paused = false
 	if get_tree().change_scene("res://Scenes/Menus/MainScene.tscn") != OK:
 		print("An unexpected error occured while trying to switch to Main scene")
@@ -90,4 +100,3 @@ func _on_SpeedBoostTimer_timeout():
 func _on_ImmuneTimer_timeout():
 	self.player.is_immune = false
 	self.player.set_effect("immune", false)
-

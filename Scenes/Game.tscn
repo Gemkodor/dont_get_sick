@@ -76,7 +76,6 @@ pause_mode = 2
 stream = ExtResource( 6 )
 
 [node name="StorePopup" parent="." instance=ExtResource( 7 )]
-visible = false
 [connection signal="coin_collected" from="Control/Player" to="Control" method="_on_Player_coin_collected"]
 [connection signal="health_changed" from="Control/Player" to="Control/HUD/GUI" method="_on_Player_health_changed"]
 [connection signal="money_changed" from="Control/Player" to="Control/HUD/GUI" method="_on_Player_money_changed"]

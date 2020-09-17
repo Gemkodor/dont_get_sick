@@ -6,7 +6,7 @@ var save_path = "user://scores.save"
 var save_data = {"highscore": 0}
 
 # Settings
-var music_activated = true
+var music_activated = false
 
 func _ready():
 	if not savegame.file_exists(save_path):
