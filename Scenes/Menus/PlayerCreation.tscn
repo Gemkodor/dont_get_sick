@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/PlayerCreation.gd" type="Script" id=1]
+[ext_resource path="res://resources/classic_font.tres" type="DynamicFont" id=2]
+
+[node name="PlayerCreation" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -12.0
+margin_bottom = 12.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_left = 503.0
+margin_top = 3.0
+margin_right = 607.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 2 )
+text = "Pseudo :"
+
+[node name="PseudoInput" type="LineEdit" parent="HBoxContainer"]
+margin_left = 611.0
+margin_right = 761.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 150, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayBtn" type="Button" parent="HBoxContainer"]
+margin_left = 765.0
+margin_right = 865.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 2 )
+text = "Jouer !"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="HBoxContainer/PlayBtn" to="." method="_on_PlayBtn_pressed"]
