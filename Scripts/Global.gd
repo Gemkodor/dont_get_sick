@@ -1,6 +1,6 @@
 extends Node
 
-const API_URL = "http://127.0.0.1:5000"
+const API_URL = "http://godot-games-web.herokuapp.com"
 const MAX_COINS_DISPLAYED = 5
 const INITIAL_NUMBER_OF_VILLAGERS = 3
 
