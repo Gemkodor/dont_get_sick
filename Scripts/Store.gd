@@ -2,7 +2,7 @@ extends Popup
 
 signal set_player_effect_hud(effect, duration)
 
-onready var player = get_node('/root/Game/Player')
+onready var player = $"../Player"
 
 enum PRICES {
 	INJECTION = 20,
@@ -42,7 +42,8 @@ func check_player_money():
 
 func close():
 	get_tree().paused = false
-	hide()
+	self.hide()
+	self.call_deferred("free")
 
 
 func _process(_delta):

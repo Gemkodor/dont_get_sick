@@ -194,6 +194,7 @@ shape = SubResource( 1 )
 position = Vector2( -6.0105, -2.11975 )
 frames = SubResource( 15 )
 animation = "right"
+frame = 1
 playing = true
 
 [node name="AnimatedSpriteGeorge" type="AnimatedSprite" parent="."]

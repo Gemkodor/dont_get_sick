@@ -66,6 +66,7 @@ func update_health(new_value):
 	elif health <= 0:
 		health = 0
 		get_tree().paused = false
+		self.call_deferred("free")
 		if get_tree().change_scene("res://Scenes/Menus/GameOver.tscn") != OK:
 			print("An error occured while trying to switch to GameOver scene")
 	

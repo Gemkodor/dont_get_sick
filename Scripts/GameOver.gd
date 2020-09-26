@@ -72,10 +72,12 @@ func _on_get_scores_completed(result, response_code, headers, body):
 
 
 func _on_Button_pressed():
+	self.call_deferred("free")
 	if get_tree().change_scene("res://Scenes/Game.tscn") != OK:
 		print("An unexpected error occured while trying to switch to Game scene")
 
 
 func _on_BackToMenu_pressed():
+	self.call_deferred("free")
 	if get_tree().change_scene("res://Scenes/Menus/MainScene.tscn") != OK:
 		print("An unexpected error occured while trying to switch to Main scene")
