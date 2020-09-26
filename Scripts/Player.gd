@@ -16,31 +16,44 @@ signal health_changed(health)
 signal money_changed(money)
 signal coin_collected
 
+onready var animated_sprite_betty = $AnimatedSpriteBetty
+onready var animated_sprite_george = $AnimatedSpriteGeorge
+var selected_player
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-
+	self.set_player_animation()
+	
+func set_player_animation():
+	if Global.selected_player == "George":
+		self.selected_player = self.animated_sprite_george
+		self.animated_sprite_betty.visible = false
+	else:
+		self.selected_player = self.animated_sprite_betty
+		self.animated_sprite_george.visible = false
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
-		$AnimatedSprite.animation = "right"
+		self.selected_player.animation = "right"
 		velocity.x += 1
 	elif Input.is_action_pressed("ui_left"):
-		$AnimatedSprite.animation = "left"
+		self.selected_player.animation = "left"
 		velocity.x -= 1
 	elif Input.is_action_pressed("ui_up"):
-		$AnimatedSprite.animation = "up"
+		self.selected_player.animation = "up"
 		velocity.y -= 1
 	elif Input.is_action_pressed("ui_down"):
-		$AnimatedSprite.animation = "down"
+		self.selected_player.animation = "down"
 		velocity.y += 1
 		
 	if velocity.length() > 0:
-		$AnimatedSprite.play()
+		self.selected_player.play()
 		velocity = velocity.normalized() * speed
 	else:
-		$AnimatedSprite.stop()
+		self.selected_player.stop()
 		
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)

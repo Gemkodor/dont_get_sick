@@ -6,6 +6,7 @@ const INITIAL_NUMBER_OF_VILLAGERS = 3
 
 # Game data
 var pseudo = "Player"
+var selected_player = "Betty"
 var score = 0
 
 # Settings

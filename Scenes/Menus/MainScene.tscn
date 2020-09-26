@@ -21,6 +21,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color( 0.588235, 0.364706, 0.14902, 1 )

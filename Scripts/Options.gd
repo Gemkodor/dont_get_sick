@@ -1,4 +1,5 @@
-extends MarginContainer
+extends Control
+
 
 func _ready():
 	pass # Replace with function body.
@@ -12,4 +13,4 @@ func _on_CheckBox_toggled(button_pressed):
 	Global.music_activated = button_pressed
 
 func _on_CheckBox_ready():
-	$VBoxContainer/HBoxContainer/MusicSetting.pressed = Global.music_activated
+	$MarginContainer/VBoxContainer/HBoxContainer/MusicSetting.pressed = Global.music_activated
