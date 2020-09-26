@@ -2,7 +2,7 @@ extends Popup
 
 signal set_player_effect_hud(effect, duration)
 
-onready var player = $"../Control/Player"
+onready var player = get_node('/root/Game/Player')
 
 enum PRICES {
 	INJECTION = 20,

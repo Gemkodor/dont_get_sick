@@ -1,8 +1,9 @@
-extends Node
+extends Node2D
 
 export (PackedScene) var Villager
 export (PackedScene) var Coin
-export var INITIAL_NUMBER_OF_VILLAGERS = 3
+
+onready var store = $StorePopup
 
 var screen_size
 var HUD_SIZE = 93
@@ -14,14 +15,14 @@ func _ready():
 	screen_size = get_viewport().size
 	if Global.music_activated:
 		$Music.play()
-	for _i in range(INITIAL_NUMBER_OF_VILLAGERS):
+	for _i in range(Global.INITIAL_NUMBER_OF_VILLAGERS):
 		add_villager(false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_key_pressed(KEY_SPACE):
 		get_tree().paused = true
-		$"../StorePopup".show()
+		self.store.show()
 
 func get_initial_position():
 	# Possible start positions are outside the screen (left/right and above/below)
@@ -60,7 +61,7 @@ func _on_NewInfectedVillagerTimer_timeout():
 	add_villager(true)
 
 func _on_NewCoinTimer_timeout():
-	if current_nb_coins < 5:
+	if current_nb_coins < Global.MAX_COINS_DISPLAYED:
 		var new_coin = Coin.instance()
 		new_coin.position.x = rand_range(50, int(screen_size.x) - 50)
 		new_coin.position.y = rand_range(HUD_SIZE, screen_size.y - 50)

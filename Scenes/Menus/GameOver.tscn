@@ -16,27 +16,45 @@ font_data = ExtResource( 2 )
 size = 24
 font_data = ExtResource( 2 )
 
-[node name="GameOver" type="MarginContainer"]
+[node name="GameOver" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.317647, 0.0862745, 0.0862745, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 80.0
 margin_top = 80.0
 margin_right = -80.0
 margin_bottom = -80.0
-script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 margin_right = 1208.0
 margin_bottom = 608.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_right = 1208.0
 margin_bottom = 37.0
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="GameOverLbl" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 1208.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
@@ -45,63 +63,63 @@ text = "Perdu !"
 align = 1
 valign = 1
 
-[node name="MarginBox" type="MarginContainer" parent="VBoxContainer"]
+[node name="MarginBox" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 41.0
 margin_right = 1208.0
 margin_bottom = 121.0
 rect_min_size = Vector2( 0, 80 )
 
-[node name="Scores" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Scores" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 125.0
 margin_right = 1208.0
 margin_bottom = 570.0
 size_flags_vertical = 3
 
-[node name="BestScoreLbl" type="Label" parent="VBoxContainer/Scores"]
+[node name="BestScoreLbl" type="Label" parent="MarginContainer/VBoxContainer/Scores"]
 margin_right = 1208.0
-margin_bottom = 28.0
+margin_bottom = 21.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.101961, 0.490196, 0.192157, 1 )
 align = 1
 
-[node name="MarginBox" type="MarginContainer" parent="VBoxContainer/Scores"]
-margin_top = 32.0
+[node name="MarginBox" type="MarginContainer" parent="MarginContainer/VBoxContainer/Scores"]
+margin_top = 25.0
 margin_right = 1208.0
-margin_bottom = 82.0
+margin_bottom = 75.0
 rect_min_size = Vector2( 0, 50 )
 
-[node name="Label" type="Label" parent="VBoxContainer/Scores"]
-margin_top = 86.0
+[node name="LastScoresTitleLbl" type="Label" parent="MarginContainer/VBoxContainer/Scores"]
+margin_top = 79.0
 margin_right = 1208.0
-margin_bottom = 114.0
+margin_bottom = 100.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.666667, 0.666667, 0.666667, 1 )
 text = "Derniers scores enregistrés :"
 align = 1
 
-[node name="Buttons" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 574.0
 margin_right = 1208.0
 margin_bottom = 608.0
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Buttons"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Buttons"]
 margin_right = 1208.0
 margin_bottom = 34.0
 alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
-margin_left = 420.0
-margin_right = 528.0
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
+margin_left = 446.0
+margin_right = 554.0
 margin_bottom = 34.0
 custom_fonts/font = SubResource( 2 )
 text = "Rejouer"
 
-[node name="BackToMenu" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
-margin_left = 532.0
-margin_right = 787.0
+[node name="BackToMenu" type="Button" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
+margin_left = 558.0
+margin_right = 761.0
 margin_bottom = 34.0
 custom_fonts/font = SubResource( 3 )
-text = "Retourner au menu"
-[connection signal="pressed" from="VBoxContainer/Buttons/HBoxContainer/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="VBoxContainer/Buttons/HBoxContainer/BackToMenu" to="." method="_on_BackToMenu_pressed"]
+text = "Menu principal"
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/HBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/HBoxContainer/BackToMenu" to="." method="_on_BackToMenu_pressed"]

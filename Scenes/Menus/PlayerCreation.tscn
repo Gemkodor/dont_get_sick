@@ -11,6 +11,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.188235, 0.352941, 0.360784, 1 )
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_top = 0.5
 anchor_right = 1.0
@@ -23,26 +28,26 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="HBoxContainer"]
-margin_left = 503.0
+margin_left = 527.0
 margin_top = 3.0
-margin_right = 607.0
-margin_bottom = 31.0
+margin_right = 605.0
+margin_bottom = 24.0
 custom_fonts/font = ExtResource( 2 )
 text = "Pseudo :"
 
 [node name="PseudoInput" type="LineEdit" parent="HBoxContainer"]
-margin_left = 611.0
-margin_right = 761.0
-margin_bottom = 34.0
+margin_left = 609.0
+margin_right = 759.0
+margin_bottom = 27.0
 rect_min_size = Vector2( 150, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PlayBtn" type="Button" parent="HBoxContainer"]
-margin_left = 765.0
-margin_right = 865.0
-margin_bottom = 34.0
+margin_left = 763.0
+margin_right = 840.0
+margin_bottom = 27.0
 custom_fonts/font = ExtResource( 2 )
 text = "Jouer !"
 __meta__ = {
