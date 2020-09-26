@@ -1,7 +1,5 @@
 extends Control
 
-const NB_SCORES_DISPLAYED = 10
-
 onready var game_over_lbl = $MarginContainer/VBoxContainer/HBoxContainer/GameOverLbl
 onready var best_score_lbl = $MarginContainer/VBoxContainer/Scores/BestScoreLbl
 onready var scores_box = $MarginContainer/VBoxContainer/Scores
@@ -61,7 +59,7 @@ func _on_get_scores_completed(result, response_code, headers, body):
 			self.best_score_lbl.text = "Meilleur score : %s (%s)" % [best_score.pseudo, best_score.score]
 			
 		var i = 0
-		while i <= (len(data['scores']) - 1) and i < NB_SCORES_DISPLAYED:
+		while i <= (len(data['scores']) - 1) and i < Global.NB_SCORES_DISPLAYED:
 			var score = data['scores'][i]
 			var label = Label.new()
 			label.add_font_override("font", load("res://resources/classic_font.tres"))

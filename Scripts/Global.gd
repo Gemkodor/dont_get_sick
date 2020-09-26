@@ -3,6 +3,8 @@ extends Node
 const API_URL = "http://godot-games-web.herokuapp.com"
 const MAX_COINS_DISPLAYED = 5
 const INITIAL_NUMBER_OF_VILLAGERS = 3
+const NB_SCORES_DISPLAYED = 10
+const NB_SCORES_DISPLAYED_HOME = 5
 
 # Game data
 var pseudo = "Player"

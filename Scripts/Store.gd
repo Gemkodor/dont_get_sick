@@ -43,8 +43,6 @@ func check_player_money():
 func close():
 	get_tree().paused = false
 	self.hide()
-	self.call_deferred("free")
-
 
 func _process(_delta):
 	check_player_money()
