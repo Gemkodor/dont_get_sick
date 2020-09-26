@@ -43,9 +43,10 @@ func _on_get_scores_completed(result, response_code, headers, body):
 		var json = JSON.parse(body.get_string_from_utf8())
 		var data = json.result
 		
-		var best_score = data['best_score']
-		if best_score:
-			$VBoxContainer/Scores/BestScoreLbl.text = "Meilleur score : %s (%s)" % [best_score.pseudo, best_score.score]
+		if "best_score" in data:
+			var best_score = data['best_score']
+			if best_score:
+				$VBoxContainer/Scores/BestScoreLbl.text = "Meilleur score : %s (%s)" % [best_score.pseudo, best_score.score]
 			
 		if len(data['scores']) >= self.NB_SCORES_DISPLAYED:
 			var i = 0
