@@ -82,16 +82,24 @@ custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.101961, 0.490196, 0.192157, 1 )
 align = 1
 
-[node name="MarginBox" type="MarginContainer" parent="MarginContainer/VBoxContainer/Scores"]
+[node name="CurrentPlayerBestCoreLbl" type="Label" parent="MarginContainer/VBoxContainer/Scores"]
 margin_top = 25.0
 margin_right = 1208.0
-margin_bottom = 75.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.101961, 0.490196, 0.192157, 1 )
+align = 1
+
+[node name="MarginBox" type="MarginContainer" parent="MarginContainer/VBoxContainer/Scores"]
+margin_top = 50.0
+margin_right = 1208.0
+margin_bottom = 100.0
 rect_min_size = Vector2( 0, 50 )
 
 [node name="LastScoresTitleLbl" type="Label" parent="MarginContainer/VBoxContainer/Scores"]
-margin_top = 79.0
+margin_top = 104.0
 margin_right = 1208.0
-margin_bottom = 100.0
+margin_bottom = 125.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.666667, 0.666667, 0.666667, 1 )
 text = "Derniers scores enregistrés :"

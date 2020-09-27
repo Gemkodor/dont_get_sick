@@ -2,6 +2,7 @@ extends Control
 
 onready var game_over_lbl = $MarginContainer/VBoxContainer/HBoxContainer/GameOverLbl
 onready var best_score_lbl = $MarginContainer/VBoxContainer/Scores/BestScoreLbl
+onready var current_player_best_score_lbl = $MarginContainer/VBoxContainer/Scores/CurrentPlayerBestCoreLbl
 onready var scores_box = $MarginContainer/VBoxContainer/Scores
 
 
@@ -44,10 +45,22 @@ func get_scores():
 	var method = HTTPClient.METHOD_GET
 	var ssl_validate_domain = true
 	http_request.request(url, headers, ssl_validate_domain, method)
+	
+
+func get_best_score_current_player():
+	var http_request = Global.create_request()
+	http_request.connect("request_completed", self, "_on_get_best_score_completed")
+	
+	var url = Global.API_URL + "/scores/" + Global.pseudo
+	var headers = ["Content-Type: application/json"]
+	var method = HTTPClient.METHOD_GET
+	var ssl_validate_domain = true
+	http_request.request(url, headers, ssl_validate_domain, method)
 
 func _on_save_scores_completed(result, response_code, headers, body):
 	# Get all the scores when new score is saved
 	self.get_scores()
+	self.get_best_score_current_player()
 
 func _on_get_scores_completed(result, response_code, headers, body):
 	if result == HTTPRequest.RESULT_SUCCESS:
@@ -68,6 +81,12 @@ func _on_get_scores_completed(result, response_code, headers, body):
 			self.scores_box.add_child(label)
 			i += 1
 
+func _on_get_best_score_completed(result, response_code, headers, body):
+	if result == HTTPRequest.RESULT_SUCCESS:
+		var json = JSON.parse(body.get_string_from_utf8())
+		var data = json.result
+		if data.score:
+			self.current_player_best_score_lbl.text = "Meilleur score personnel : " + str(data.score)
 
 func _on_Button_pressed():
 	self.call_deferred("free")
