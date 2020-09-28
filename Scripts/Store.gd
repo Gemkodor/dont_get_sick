@@ -16,6 +16,7 @@ enum EFFECTS_DURATIONS {
 	MASK = 10
 }
 
+var timers = []
 
 func check_player_money():
 	if self.player:
@@ -42,7 +43,9 @@ func check_player_money():
 
 func close():
 	get_tree().paused = false
+	self.start_timers()
 	self.hide()
+
 
 func _process(_delta):
 	check_player_money()
@@ -50,13 +53,19 @@ func _process(_delta):
 		self.close()
 
 
+func start_timers():
+	for timer in self.timers:
+		timer.start()
+	self.timers = []
+
+
 func create_timer(duration, callback):
 	var player_effect_timer = Timer.new()
 	add_child(player_effect_timer)
 	player_effect_timer.one_shot = true
-	player_effect_timer.wait_time = (duration + 1) # Add 1 second for better correspondance between hud and actual effect 
+	player_effect_timer.wait_time = duration
 	player_effect_timer.connect("timeout", self, callback)
-	player_effect_timer.start()
+	self.timers.append(player_effect_timer)
 
 
 func _on_BackToGame_pressed():
@@ -66,7 +75,7 @@ func _on_BackToGame_pressed():
 func _on_BackToMenu_pressed():
 	$ConfirmQuitDialog.show()
 	$ConfirmQuitDialog.popup_centered()
-	
+
 
 func _on_ConfirmQuitDialog_confirmed():
 	self.close()
@@ -78,7 +87,7 @@ func _on_BuyFirstAidBtn_pressed():
 	if self.player.withdraw_money(PRICES.FIRST_AID_KIT):
 		self.player.update_health(self.player.health + 10)
 
-	
+
 func _on_BuyPillsBtn_pressed():
 	if self.player.withdraw_money(PRICES.PILLS):
 		if randi() % 100 + 1 < 20:
@@ -95,7 +104,7 @@ func _on_BuyInjectionBtn_pressed():
 			emit_signal("set_player_effect_hud", "boost", EFFECTS_DURATIONS.INJECTION)
 			self.create_timer(EFFECTS_DURATIONS.INJECTION, "_on_SpeedBoostTimer_timeout")
 
-	
+
 func _on_BuyMaskBtn_pressed():
 	if not self.player.is_effect_active("immune"):
 		if self.player.withdraw_money(PRICES.MASK):
