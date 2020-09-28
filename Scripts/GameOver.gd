@@ -20,7 +20,7 @@ func save_score():
 	}
 
 	var data = JSON.print(player_score)
-	Global.send_request("scores/save", HTTPClient.METHOD_POST, String(), self, "_on_save_scores_completed")
+	Global.send_request("scores/save", HTTPClient.METHOD_POST, data, self, "_on_save_scores_completed")
 
 
 func _on_save_scores_completed(result, response_code, headers, body):
