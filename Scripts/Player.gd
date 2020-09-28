@@ -18,6 +18,7 @@ signal coin_collected
 
 onready var animated_sprite_betty = $AnimatedSpriteBetty
 onready var animated_sprite_george = $AnimatedSpriteGeorge
+onready var immunity_highlight = $ImmunityHighlight
 var selected_player
 
 # Called when the node enters the scene tree for the first time.
@@ -58,6 +59,11 @@ func _process(delta):
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
+	
+	if "immune" in self.effects and self.effects["immune"]:
+		self.immunity_highlight.show()
+	else:
+		self.immunity_highlight.hide()
 	
 func update_health(new_value):
 	health = new_value
