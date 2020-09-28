@@ -4,6 +4,8 @@ signal set_player_effect_hud(effect, duration)
 
 onready var player = $"../Player"
 
+const DELAY_GAME_RESUME = 1
+
 enum PRICES {
 	INJECTION = 20,
 	FIRST_AID_KIT = 30,
@@ -17,6 +19,13 @@ enum EFFECTS_DURATIONS {
 }
 
 var timers = []
+
+func _process(_delta):
+	self.check_player_money()
+	if Input.is_key_pressed(KEY_ESCAPE):
+		self.hide()
+		self.start_delay_on_resume()
+
 
 func check_player_money():
 	if self.player:
@@ -41,24 +50,6 @@ func check_player_money():
 			$Panel/MarginContainer/Container/ShopContainer/Mask/BuyMaskBtn.disabled = false
 
 
-func close():
-	get_tree().paused = false
-	self.start_timers()
-	self.hide()
-
-
-func _process(_delta):
-	check_player_money()
-	if Input.is_key_pressed(KEY_ESCAPE):
-		self.close()
-
-
-func start_timers():
-	for timer in self.timers:
-		timer.start()
-	self.timers = []
-
-
 func create_timer(duration, callback):
 	var player_effect_timer = Timer.new()
 	add_child(player_effect_timer)
@@ -68,8 +59,39 @@ func create_timer(duration, callback):
 	self.timers.append(player_effect_timer)
 
 
+func start_delay_on_resume():
+	var delay = Timer.new()
+	add_child(delay)
+	delay.wait_time = self.DELAY_GAME_RESUME
+	delay.one_shot = true
+	delay.connect("timeout", self, "resume_game")
+	delay.start()
+
+
+func resume_game():
+	get_tree().paused = false
+	self.start_timers()
+
+
+func start_timers():
+	for timer in self.timers:
+		timer.start()
+	self.timers = []
+
+
+func _on_SpeedBoostTimer_timeout():
+	self.player.set_speed(200)
+	self.player.set_effect("speed", false)
+
+
+func _on_ImmuneTimer_timeout():
+	self.player.is_immune = false
+	self.player.set_effect("immune", false)
+
+
 func _on_BackToGame_pressed():
-	self.close()
+	self.hide()
+	self.start_delay_on_resume()
 
 
 func _on_BackToMenu_pressed():
@@ -78,7 +100,8 @@ func _on_BackToMenu_pressed():
 
 
 func _on_ConfirmQuitDialog_confirmed():
-	self.close()
+	self.hide()
+	get_tree().paused = false
 	if get_tree().change_scene("res://Scenes/Menus/MainScene.tscn") != OK:
 		print("An unexpected error occured while trying to switch to Main scene")
 
@@ -112,13 +135,3 @@ func _on_BuyMaskBtn_pressed():
 			self.player.is_immune = true
 			emit_signal("set_player_effect_hud", "immunity", EFFECTS_DURATIONS.MASK)
 			self.create_timer(EFFECTS_DURATIONS.MASK, "_on_ImmuneTimer_timeout")
-
-
-func _on_SpeedBoostTimer_timeout():
-	self.player.set_speed(200)
-	self.player.set_effect("speed", false)
-
-
-func _on_ImmuneTimer_timeout():
-	self.player.is_immune = false
-	self.player.set_effect("immune", false)
