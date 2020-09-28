@@ -19,53 +19,19 @@ func save_score():
 		'score': Global.score
 	}
 
-	# Create HTTP Request
-	var http_request = Global.create_request()
-	http_request.connect("request_completed", self, "_on_save_scores_completed")
-
-	# Build the request parameters
-	var url = Global.API_URL + "/scores/save"
-	var headers = ["Content-Type: application/json"]
-	var method = HTTPClient.METHOD_POST
 	var data = JSON.print(player_score)
-	var ssl_validate_domain = true
-	
-	var result = http_request.request(url, headers, ssl_validate_domain, method, data)
-	if result != OK:
-		print("Failed to send the score to the server : %d" % result)
+	Global.send_request("scores/save", HTTPClient.METHOD_POST, String(), self, "_on_save_scores_completed")
 
-
-func get_scores():
-	var http_request = Global.create_request()
-	http_request.connect("request_completed", self, "_on_get_scores_completed")
-	
-	# Build request parameters
-	var url = Global.API_URL + "/scores"
-	var headers = ["Content-Type: application/json"]
-	var method = HTTPClient.METHOD_GET
-	var ssl_validate_domain = true
-	http_request.request(url, headers, ssl_validate_domain, method)
-	
-
-func get_best_score_current_player():
-	var http_request = Global.create_request()
-	http_request.connect("request_completed", self, "_on_get_best_score_completed")
-	
-	var url = Global.API_URL + "/scores/" + Global.pseudo
-	var headers = ["Content-Type: application/json"]
-	var method = HTTPClient.METHOD_GET
-	var ssl_validate_domain = true
-	http_request.request(url, headers, ssl_validate_domain, method)
 
 func _on_save_scores_completed(result, response_code, headers, body):
 	# Get all the scores when new score is saved
-	self.get_scores()
-	self.get_best_score_current_player()
+	Global.send_request("scores/" + str(Global.NB_SCORES_DISPLAYED), HTTPClient.METHOD_GET, String(), self, "_on_get_scores_completed")
+	Global.send_request("best_score/" + Global.pseudo, HTTPClient.METHOD_GET, String(), self, "_on_get_best_score_completed")
+
 
 func _on_get_scores_completed(result, response_code, headers, body):
 	if result == HTTPRequest.RESULT_SUCCESS:
-		var json = JSON.parse(body.get_string_from_utf8())
-		var data = json.result
+		var data = Global.get_json_from_response(body)
 		
 		if "best_score" in data:
 			var best_score = data['best_score']
@@ -81,12 +47,13 @@ func _on_get_scores_completed(result, response_code, headers, body):
 			self.scores_box.add_child(label)
 			i += 1
 
+
 func _on_get_best_score_completed(result, response_code, headers, body):
 	if result == HTTPRequest.RESULT_SUCCESS:
-		var json = JSON.parse(body.get_string_from_utf8())
-		var data = json.result
-		if data.score:
+		var data = Global.get_json_from_response(body)
+		if data and data.score:
 			self.current_player_best_score_lbl.text = "Meilleur score personnel : " + str(data.score)
+
 
 func _on_Button_pressed():
 	self.call_deferred("free")

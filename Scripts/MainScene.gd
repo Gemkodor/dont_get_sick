@@ -3,9 +3,10 @@ extends Node
 onready var scores = $Control/Scores
 onready var best_score_lbl = $Control/Scores/BestScoreLbl
 
+
 func _ready():
 	randomize()
-	self.load_last_scores()
+	Global.send_request("scores/" + str(Global.NB_SCORES_DISPLAYED_HOME), HTTPClient.METHOD_GET, String(), self, "_on_get_scores_completed")
 
 
 func _on_PlayBtn_pressed():
@@ -23,22 +24,9 @@ func _on_Quit_pressed():
 	get_tree().quit()
 
 
-func load_last_scores():
-	var http_request = Global.create_request()
-	http_request.connect("request_completed", self, "_on_get_scores_completed")
-	
-	# Build request parameters
-	var url = Global.API_URL + "/scores"
-	var headers = ["Content-Type: application/json"]
-	var method = HTTPClient.METHOD_GET
-	var ssl_validate_domain = true
-	http_request.request(url, headers, ssl_validate_domain, method)
-
-
 func _on_get_scores_completed(result, response_code, headers, body):
 	if result == HTTPRequest.RESULT_SUCCESS:
-		var json = JSON.parse(body.get_string_from_utf8())
-		var data = json.result
+		var data = Global.get_json_from_response(body)
 		
 		if "best_score" in data:
 			var best_score = data['best_score']

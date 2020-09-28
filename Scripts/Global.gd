@@ -1,6 +1,6 @@
 extends Node
 
-const API_URL = "http://godot-games-web.herokuapp.com"
+const API_URL = "http://godot-games-web.herokuapp.com/"
 const MAX_COINS_DISPLAYED = 5
 const INITIAL_NUMBER_OF_VILLAGERS = 3
 const NB_SCORES_DISPLAYED = 10
@@ -14,7 +14,22 @@ var score = 0
 # Settings
 var music_activated = true
 
+
+# Networking methods
 func create_request():
 	var http_request = HTTPRequest.new()
 	self.add_child(http_request)
 	return http_request
+
+
+func send_request(endpoint, method, data, sender, callback):
+	var http_request = self.create_request()
+	var url = self.API_URL + endpoint
+	var headers = ["Content-Type: application.json"]
+	var ssl_validate_domain = true
+	http_request.connect("request_completed", sender, callback)
+	http_request.request(url, headers, ssl_validate_domain, method, data)
+
+
+func get_json_from_response(body):
+	return JSON.parse(body.get_string_from_utf8()).result
