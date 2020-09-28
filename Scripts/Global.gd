@@ -25,10 +25,10 @@ func create_request():
 func send_request(endpoint, method, data, sender, callback):
 	var http_request = self.create_request()
 	var url = self.API_URL + endpoint
-	var headers = ["Content-Type: application.json"]
+	var headers = ["Content-Type: application/json"]
 	var ssl_validate_domain = true
 	http_request.connect("request_completed", sender, callback)
-	http_request.request(url, headers, ssl_validate_domain, method, data)
+	http_request.request(url, headers, ssl_validate_domain, method, JSON.print(data))
 
 
 func get_json_from_response(body):
