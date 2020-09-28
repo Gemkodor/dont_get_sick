@@ -1,13 +1,16 @@
 extends Node
 
-onready var scores = $Control/Scores
-onready var best_score_lbl = $Control/Scores/BestScoreLbl
+onready var loading_scores = $Control/Scores/Loading
+onready var scores = $Control/Scores/Content
+onready var best_score_lbl = $Control/Scores/Content/BestScoreLbl
 
 
 func _ready():
 	randomize()
+	self.loading_scores.show()
+	self.scores.hide()
 	Global.send_request("scores/" + str(Global.NB_SCORES_DISPLAYED_HOME), HTTPClient.METHOD_GET, String(), self, "_on_get_scores_completed")
-
+	
 
 func _on_PlayBtn_pressed():
 	self.call_deferred("free")
@@ -26,6 +29,8 @@ func _on_Quit_pressed():
 
 func _on_get_scores_completed(result, response_code, headers, body):
 	if result == HTTPRequest.RESULT_SUCCESS:
+		self.loading_scores.hide()
+		self.scores.show()
 		var data = Global.get_json_from_response(body)
 		
 		if "best_score" in data:
