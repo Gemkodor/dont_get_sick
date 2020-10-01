@@ -1,10 +1,10 @@
 extends Control
 
 onready var game_over_lbl = $MarginContainer/VBoxContainer/HBoxContainer/GameOverLbl
-onready var best_score_lbl = $MarginContainer/VBoxContainer/Scores/BestScoreLbl
-onready var current_player_best_score_lbl = $MarginContainer/VBoxContainer/Scores/CurrentPlayerBestCoreLbl
-onready var scores_box = $MarginContainer/VBoxContainer/Scores
-
+onready var best_score_lbl = $MarginContainer/VBoxContainer/VBoxContainer/BestScoreLbl
+onready var current_player_best_score_lbl = $MarginContainer/VBoxContainer/VBoxContainer/CurrentPlayerBestCoreLbl
+onready var scores_box = $MarginContainer/VBoxContainer/HBoxContainer2/Scores
+onready var highscores_box = $MarginContainer/VBoxContainer/HBoxContainer2/Highscores
 
 func _ready():
 	self.game_over_lbl.text = "Perdu ! Vous avez fait un score de : " + str(Global.score)
@@ -26,6 +26,7 @@ func _on_save_scores_completed(result, response_code, headers, body):
 	# Get all the scores when new score is saved
 	Global.send_request("scores/" + str(Global.NB_SCORES_DISPLAYED), HTTPClient.METHOD_GET, String(), self, "_on_get_scores_completed")
 	Global.send_request("best_score/" + Global.pseudo, HTTPClient.METHOD_GET, String(), self, "_on_get_best_score_completed")
+	Global.send_request("highscores", HTTPClient.METHOD_GET, String(), self, "_on_get_highscores_completed")
 
 
 func _on_get_scores_completed(result, response_code, headers, body):
@@ -52,6 +53,20 @@ func _on_get_best_score_completed(result, response_code, headers, body):
 		var data = Global.get_json_from_response(body)
 		if data and data.score:
 			self.current_player_best_score_lbl.text = "Meilleur score personnel : " + str(data.score)
+
+
+func _on_get_highscores_completed(result, response_code, headers, body):
+	if result == HTTPRequest.RESULT_SUCCESS:
+		var data = Global.get_json_from_response(body)
+		var i = 0
+		while i <= (len(data) - 1) and i < Global.NB_SCORES_DISPLAYED:
+			var score = data[i]
+			var label = Label.new()
+			label.add_font_override("font", load("res://resources/classic_font.tres"))
+			label.align = Label.ALIGN_CENTER
+			label.text = "%s - %s" % [score[0], score[1]]
+			self.highscores_box.add_child(label)
+			i += 1
 
 
 func _on_Button_pressed():
