@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/fonts/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/COVID VIRUS.ttf" type="DynamicFontData" id=2]
@@ -13,6 +13,12 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 28
+extra_spacing_top = 25
+extra_spacing_bottom = 25
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 25
 extra_spacing_top = 25
 extra_spacing_bottom = 25
 font_data = ExtResource( 1 )
@@ -84,9 +90,9 @@ __meta__ = {
 }
 
 [node name="PlayBtn" type="Button" parent="MarginContainer/Content/Menu/VBoxContainer"]
-margin_top = 157.0
+margin_top = 113.0
 margin_right = 130.0
-margin_bottom = 245.0
+margin_bottom = 201.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_hover = Color( 0.486275, 0.486275, 0.486275, 1 )
 text = "Jouer"
@@ -96,9 +102,9 @@ __meta__ = {
 }
 
 [node name="Options" type="Button" parent="MarginContainer/Content/Menu/VBoxContainer"]
-margin_top = 249.0
+margin_top = 205.0
 margin_right = 130.0
-margin_bottom = 337.0
+margin_bottom = 293.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_hover = Color( 0.486275, 0.486275, 0.486275, 1 )
 text = "Options"
@@ -107,10 +113,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Quit" type="Button" parent="MarginContainer/Content/Menu/VBoxContainer"]
-margin_top = 341.0
+[node name="ScoresBtn" type="Button" parent="MarginContainer/Content/Menu/VBoxContainer"]
+margin_top = 297.0
 margin_right = 130.0
-margin_bottom = 429.0
+margin_bottom = 382.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color_hover = Color( 0.486275, 0.486275, 0.486275, 1 )
+text = "Scores"
+flat = true
+
+[node name="Quit" type="Button" parent="MarginContainer/Content/Menu/VBoxContainer"]
+margin_top = 386.0
+margin_right = 130.0
+margin_bottom = 474.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_hover = Color( 0.486275, 0.486275, 0.486275, 1 )
 text = "Quitter"
@@ -150,14 +165,14 @@ __meta__ = {
 }
 
 [node name="Loading" type="VBoxContainer" parent="Control/Scores"]
-margin_right = 175.0
+margin_right = 172.0
 margin_bottom = 204.0
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Label" type="Label" parent="Control/Scores/Loading"]
 margin_top = 79.0
-margin_right = 175.0
+margin_right = 172.0
 margin_bottom = 124.0
 custom_fonts/font = ExtResource( 5 )
 text = "Chargement des 
@@ -202,4 +217,5 @@ __meta__ = {
 }
 [connection signal="pressed" from="MarginContainer/Content/Menu/VBoxContainer/PlayBtn" to="." method="_on_PlayBtn_pressed"]
 [connection signal="pressed" from="MarginContainer/Content/Menu/VBoxContainer/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="MarginContainer/Content/Menu/VBoxContainer/ScoresBtn" to="." method="_on_ScoresBtn_pressed"]
 [connection signal="pressed" from="MarginContainer/Content/Menu/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

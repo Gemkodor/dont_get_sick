@@ -23,6 +23,12 @@ func _on_Options_pressed():
 		print("An unexpected error occured while trying to switch to the Options scene")
 
 
+func _on_ScoresBtn_pressed():
+	self.call_deferred("free")
+	if get_tree().change_scene("res://Scenes/Menus/Scores.tscn") != OK:
+		print("An unexpected error occured while trying to switch to the Scores scene")
+
+
 func _on_Quit_pressed():
 	get_tree().quit()
 

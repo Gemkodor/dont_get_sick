@@ -1,17 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Options.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/COVID VIRUS.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fonts/Comfortaa-Bold.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
 extra_spacing_bottom = 50
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=2]
+size = 35
+font_data = ExtResource( 3 )
+
 [node name="Options" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -54,5 +62,27 @@ margin_left = 560.0
 margin_right = 708.0
 margin_bottom = 24.0
 text = "Activer la musique"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 159.0
+margin_right = 1268.0
+margin_bottom = 618.0
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 622.0
+margin_right = 1268.0
+margin_bottom = 668.0
+alignment = 1
+
+[node name="BackBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 566.0
+margin_right = 701.0
+margin_bottom = 46.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_hover = Color( 0.486275, 0.486275, 0.486275, 1 )
+text = "Retour"
+flat = true
 [connection signal="ready" from="MarginContainer/VBoxContainer/HBoxContainer/MusicSetting" to="." method="_on_CheckBox_ready"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/MusicSetting" to="." method="_on_CheckBox_toggled"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/BackBtn" to="." method="_on_BackBtn_pressed"]
