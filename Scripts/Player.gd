@@ -25,7 +25,8 @@ var selected_player
 func _ready():
 	screen_size = get_viewport_rect().size
 	self.set_player_animation()
-	
+
+
 func set_player_animation():
 	if Global.selected_player == "George":
 		self.selected_player = self.animated_sprite_george
@@ -33,7 +34,19 @@ func set_player_animation():
 	else:
 		self.selected_player = self.animated_sprite_betty
 		self.animated_sprite_george.visible = false
-		
+
+
+func set_player_lowlife_visual():
+	var color = "#ffffff"
+	if self.health <= 20:
+		color = "#e41f1f"
+	
+	if Global.selected_player == "George":
+		self.animated_sprite_george.self_modulate = color
+	else:
+		self.animated_sprite_betty.self_modulate = color
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = Vector2()
@@ -64,7 +77,10 @@ func _process(delta):
 		self.immunity_highlight.show()
 	else:
 		self.immunity_highlight.hide()
-	
+		# Reset color
+		self.immunity_highlight.color = "#d4a721"
+
+
 func update_health(new_value):
 	health = new_value
 	if health > 100:
@@ -76,29 +92,36 @@ func update_health(new_value):
 		if get_tree().change_scene("res://Scenes/Menus/GameOver.tscn") != OK:
 			print("An error occured while trying to switch to GameOver scene")
 	
+	self.set_player_lowlife_visual()
 	emit_signal("health_changed", health)
-	
+
+
 func set_effect(effect, active):
 	self.effects[effect] = active
-	
+
+
 func set_speed(new_speed):
 	self.speed = new_speed
-	
+
+
 func is_effect_active(effect):
 	if effect in self.effects:
 		return self.effects[effect]
 	
 	return false
 
+
 func take_damage(count):
 	if not is_immune:
 		update_health(health - count)
 		emit_signal("health_changed", health)
-	
+
+
 func get_money(count):
 	money += count
 	emit_signal("money_changed", self.money)
 	emit_signal("coin_collected")
+
 
 func withdraw_money(amount):
 	if self.money >= amount:
@@ -107,3 +130,9 @@ func withdraw_money(amount):
 		return true
 		
 	return false
+
+
+func _on_StorePopup_ending_of_player_effect(effect):
+	match effect:
+		"immune":
+			self.immunity_highlight.color = "#e41f1f"

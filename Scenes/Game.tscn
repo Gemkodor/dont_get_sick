@@ -110,4 +110,5 @@ stream = ExtResource( 6 )
 [connection signal="timeout" from="NewVillagerTimer" to="." method="_on_NewVillagerTimer_timeout"]
 [connection signal="timeout" from="NewInfectedVillagerTimer" to="." method="_on_NewInfectedVillagerTimer_timeout"]
 [connection signal="timeout" from="NewCoinTimer" to="." method="_on_NewCoinTimer_timeout"]
+[connection signal="ending_of_player_effect" from="StorePopup" to="Player" method="_on_StorePopup_ending_of_player_effect"]
 [connection signal="set_player_effect_hud" from="StorePopup" to="HUD/GUI" method="_on_StorePopup_set_player_effect_hud"]

@@ -1,6 +1,7 @@
 extends Popup
 
 signal set_player_effect_hud(effect, duration)
+signal ending_of_player_effect(effect)
 
 onready var player = $"../Player"
 onready var resume_game_label = $"../HUD/ResumeGameLbl"
@@ -113,6 +114,10 @@ func _on_ImmuneTimer_timeout():
 	self.player.set_effect("immune", false)
 
 
+func _on_ImmuneTimerEnding_timeout():
+	self.emit_signal("ending_of_player_effect", "immune")
+
+
 func _on_BackToGame_pressed():
 	self.hide()
 	self.start_delay_on_resume()
@@ -161,3 +166,5 @@ func _on_BuyMaskBtn_pressed():
 			emit_signal("set_player_effect_hud", "immunity", EFFECTS_DURATIONS.MASK)
 			var player_effect_timer = self.create_timer(EFFECTS_DURATIONS.MASK, "_on_ImmuneTimer_timeout")
 			self.timers.append(player_effect_timer)
+			var player_ending_effect_timer = self.create_timer(EFFECTS_DURATIONS.MASK - 2, "_on_ImmuneTimerEnding_timeout")
+			self.timers.append(player_ending_effect_timer)
