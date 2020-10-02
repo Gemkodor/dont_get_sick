@@ -14,7 +14,7 @@ var score = 0
 # Settings
 var music_activated = true
 var display_resume_game_timer = true
-var resume_game_timer_duration = 10
+var resume_game_timer_duration = 100
 
 # Networking methods
 func create_request():
