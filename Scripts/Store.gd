@@ -22,7 +22,10 @@ var timers = []
 
 func _process(_delta):
 	self.check_player_money()
-	if Input.is_key_pressed(KEY_ESCAPE):
+
+
+func _input(event):
+	if event.is_action_pressed("close") and self.visible:
 		self.hide()
 		self.start_delay_on_resume()
 

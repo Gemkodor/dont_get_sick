@@ -18,11 +18,12 @@ func _ready():
 	for _i in range(Global.INITIAL_NUMBER_OF_VILLAGERS):
 		add_villager(false)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if Input.is_key_pressed(KEY_SPACE):
+
+func _input(event):
+	if event.is_action_pressed("open_store"):
 		get_tree().paused = true
 		self.store.show()
+
 
 func get_initial_position():
 	# Possible start positions are outside the screen (left/right and above/below)
