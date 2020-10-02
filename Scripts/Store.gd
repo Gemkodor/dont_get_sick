@@ -3,8 +3,10 @@ extends Popup
 signal set_player_effect_hud(effect, duration)
 
 onready var player = $"../Player"
+onready var resume_game_label = $"../HUD/ResumeGameLbl"
+onready var resume_game_timer = $"../HUD/ResumeGameTimer"
 
-const DELAY_GAME_RESUME = 1
+const DELAY_GAME_RESUME = 2
 
 enum PRICES {
 	INJECTION = 20,
@@ -19,6 +21,12 @@ enum EFFECTS_DURATIONS {
 }
 
 var timers = []
+var counter_resume_game = DELAY_GAME_RESUME
+
+
+func _ready():
+	self.resume_game_timer.connect("timeout", self, "_resume_game_timer_timeout")
+
 
 func _process(_delta):
 	self.check_player_money()
@@ -54,21 +62,25 @@ func check_player_money():
 
 
 func create_timer(duration, callback):
-	var player_effect_timer = Timer.new()
-	add_child(player_effect_timer)
-	player_effect_timer.one_shot = true
-	player_effect_timer.wait_time = duration
-	player_effect_timer.connect("timeout", self, callback)
-	self.timers.append(player_effect_timer)
+	var new_timer = Timer.new()
+	new_timer.one_shot = true
+	new_timer.wait_time = duration
+	new_timer.connect("timeout", self, callback)
+	add_child(new_timer)
+	return new_timer
 
 
 func start_delay_on_resume():
-	var delay = Timer.new()
-	add_child(delay)
-	delay.wait_time = self.DELAY_GAME_RESUME
-	delay.one_shot = true
-	delay.connect("timeout", self, "resume_game")
-	delay.start()
+	if Global.display_resume_game_timer and Global.score >= Global.resume_game_timer_duration:
+		var timer = self.create_timer(self.DELAY_GAME_RESUME, "resume_game")
+		timer.start()
+		
+		self.counter_resume_game = self.DELAY_GAME_RESUME
+		self.resume_game_label.text = str(self.counter_resume_game)
+		self.resume_game_label.show()
+		self.resume_game_timer.start()
+	else:
+		self.resume_game()
 
 
 func resume_game():
@@ -80,6 +92,15 @@ func start_timers():
 	for timer in self.timers:
 		timer.start()
 	self.timers = []
+
+
+func _resume_game_timer_timeout():
+	self.counter_resume_game -= 1
+	if self.counter_resume_game <= 0:
+		self.resume_game_label.hide()
+		self.resume_game_timer.stop()
+	else:
+		self.resume_game_label.text = str(self.counter_resume_game)
 
 
 func _on_SpeedBoostTimer_timeout():
@@ -128,7 +149,8 @@ func _on_BuyInjectionBtn_pressed():
 			self.player.set_effect("speed", true)
 			self.player.set_speed(400)
 			emit_signal("set_player_effect_hud", "boost", EFFECTS_DURATIONS.INJECTION)
-			self.create_timer(EFFECTS_DURATIONS.INJECTION, "_on_SpeedBoostTimer_timeout")
+			var player_effect_timer = self.create_timer(EFFECTS_DURATIONS.INJECTION, "_on_SpeedBoostTimer_timeout")
+			self.timers.append(player_effect_timer)
 
 
 func _on_BuyMaskBtn_pressed():
@@ -137,4 +159,5 @@ func _on_BuyMaskBtn_pressed():
 			self.player.set_effect("immune", true)
 			self.player.is_immune = true
 			emit_signal("set_player_effect_hud", "immunity", EFFECTS_DURATIONS.MASK)
-			self.create_timer(EFFECTS_DURATIONS.MASK, "_on_ImmuneTimer_timeout")
+			var player_effect_timer = self.create_timer(EFFECTS_DURATIONS.MASK, "_on_ImmuneTimer_timeout")
+			self.timers.append(player_effect_timer)

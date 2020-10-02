@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=2]
@@ -7,6 +7,11 @@
 [ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/music/Bonbon.wav" type="AudioStream" id=6]
 [ext_resource path="res://Scenes/Store.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/fonts/COVID VIRUS.ttf" type="DynamicFontData" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 100
+font_data = ExtResource( 8 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -74,11 +79,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ResumeGameLbl" type="Label" parent="HUD"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.0
+margin_top = -60.0
+margin_right = 50.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 1 )
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResumeGameTimer" type="Timer" parent="HUD"]
+
 [node name="StorePopup" parent="." instance=ExtResource( 7 )]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 6 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 [connection signal="coin_collected" from="Player" to="." method="_on_Player_coin_collected"]
 [connection signal="health_changed" from="Player" to="HUD/GUI" method="_on_Player_health_changed"]
 [connection signal="money_changed" from="Player" to="HUD/GUI" method="_on_Player_money_changed"]
